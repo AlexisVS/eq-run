@@ -1,5 +1,6 @@
 # eQual - Run
-Contributors: (this should be a list of wordpress.org userid's)
+
+Contributors: (this should be a list of wordpress.org user IDs)
 
 Tags: comments, spam
 
@@ -15,30 +16,34 @@ License: GPLv2 or later
 
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-
-Here is a short description of the plugin.  This should be no more than 150 characters.  No markup here.
-
 ## Description
 
-
+eQual - Run is a WordPress plugin designed to handle eQual requests efficiently. It integrates with the eQual library to manage various functionalities related to eQual. This plugin facilitates the seamless integration of the eQual framework within WordPress by loading the `eq.lib.php` file and initializing the necessary dependencies.
 
 ## Installation
 
 This section describes how to install the plugin and get it working.
 
-1. Upload `eq-run.zip` to the `/wp-content/plugins/` directory or by WordPress plugin manager
-2. Activate the plugin through the 'Plugins' menu in WordPress
+1. Upload `eq-run.zip` to the `/wp-content/plugins/` directory or install it via the WordPress plugin manager.
+2. Activate the plugin through the 'Plugins' menu in WordPress.
 
 ## Frequently Asked Questions
 
+This section is currently empty.
+
 ## Screenshots
 
+No screenshots available.
 
 ## Changelog
 
+### 0.1.0
+- Initial release of eQual - Run plugin.
 
 ## Upgrade Notice
 
+No upgrade notices available.
 
 ## Arbitrary section
 
+This section is currently empty.

@@ -53,46 +53,64 @@ add_action( 'init', function () {
         throw new Exception( 'unable to load eQual dependencies' );
     }
 
-//    try {
-//        $users1 = \core\User::ids( [ 1, 2 ] )->get( true );
-//
-//        $users2 = \config\eQual::run( 'get', 'model_collect', [ 'entity' => 'core\\User' ] );
-//    } catch ( Exception $e ) {
-//        print_r( [ $e->getCode(), $e->getMessage() ] );
-//    }
-    add_shortcode( 'eq_menu_menu', 'eq_menu_shortcode' );
+    add_shortcode( 'eq_menu_menu', 'eq_menu_shortcode_test' );
 } );
 
+
 /**
- * Shortcode for menu.
- *
- * @param array $attributes
+ * Shortcode for testing purpose.
  *
  * @return string
+ * @throws Exception
  */
-function eq_menu_shortcode( array $attributes ): string {
+function eq_menu_shortcode_test(): string {
 
-    $shortcode_attributes = shortcode_atts( [
-        'menu' => 'eQual',
-    ], $attributes, 'eq_menu_menu' );
+    $user = \core\User::id( 1 )
+                      ->read( [ 'firstname', 'lastname', 'login' ] )
+                      ->adapt( 'json' )
+                      ->first( true );
+
+    $color = 'crimson'; // red
+
+    if ( $user['id'] == 1 ) {
+        $color = 'lightseagreen';
+    }
+
+    $html = '<div style="padding: 50px; background-color:' . $color . '">';
+    $html .= '<h1>User Info</h1>';
+    $html .= '<dl>';
+    $html .= '<dt>User id:</dt>';
+    $html .= '<dd>' . $user['id'] . '</dd>';
+    $html .= '<br>';
+    $html .= '<dt>First Name:</dt>';
+    $html .= '<dd>' . $user['firstname'] . '</dd>';
+    $html .= '<br>';
+    $html .= '<dt>Last Name:</dt>';
+    $html .= '<dd>' . $user['lastname'] . '</dd>';
+    $html .= '<br>';
+    $html .= '<dt>Login:</dt>';
+    $html .= '<dd>' . $user['login'] . '</dd>';
+    $html .= '</dl>';
+    $html .= '</div>';
 
 
-    return "
-        <div id=\"sb-menu\" style=\"height: 30px;\"></div>
-        <div id=\"sb-container\" style=\"margin-top: 20px;\"></div>
-    ";
+    return $html;
 }
 
 function eq_menu_add_custom_page() {
     $post = [
         'post_title'   => 'eQual test page',
-        'post_content' => '[eq_menu_menu menu="eQual"]',
+        'post_content' => '[eq_test]',
         'post_status'  => 'publish',
         'post_author'  => 1,
         'post_type'    => 'page',
     ];
 
-    wp_insert_post( $post );
+    // Insert the post if it does not exist
+    if ( get_post( $post ) === null ) {
+        wp_insert_post( $post );
+    }
 }
 
 register_activation_hook( __FILE__, 'eq_menu_add_custom_page' );
+

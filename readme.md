@@ -18,7 +18,9 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 ## Description
 
-eQual - Run is a WordPress plugin designed to handle eQual requests efficiently. It integrates with the eQual library to manage various functionalities related to eQual. This plugin facilitates the seamless integration of the eQual framework within WordPress by loading the `eq.lib.php` file and initializing the necessary dependencies.
+eQual - Run is a WordPress plugin designed to handle eQual requests efficiently. It integrates with the eQual library to
+manage various functionalities related to eQual. This plugin facilitates the seamless integration of the eQual framework
+within WordPress by loading the `eq.lib.php` file and initializing the necessary dependencies.
 
 ## Installation
 
@@ -33,11 +35,12 @@ This section is currently empty.
 
 ## Screenshots
 
-No screenshots available.
+![](./doc/images/poster.png)
 
 ## Changelog
 
 ### 0.1.0
+
 - Initial release of eQual - Run plugin.
 
 ## Upgrade Notice

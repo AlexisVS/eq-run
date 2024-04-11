@@ -22,7 +22,7 @@ add_action( 'init', function () {
 
     if ( ! function_exists( 'eQual::init' ) ) {
         // try to include eQual boostrap library
-        $eq_bootstrap = dirname( __FILE__ ) . '/../../../../eq.lib.php';
+        $eq_bootstrap = ABSPATH . '../eq.lib.php';
 
         if ( file_exists( $eq_bootstrap ) ) {
             if ( ( include_once( $eq_bootstrap ) ) === false ) {
@@ -53,7 +53,7 @@ add_action( 'init', function () {
         throw new Exception( 'unable to load eQual dependencies' );
     }
 
-    add_shortcode( 'eq_menu_menu', 'eq_menu_shortcode_test' );
+    add_shortcode( 'eq_test', 'eq_menu_shortcode_test' );
 } );
 
 
@@ -64,53 +64,76 @@ add_action( 'init', function () {
  * @throws Exception
  */
 function eq_menu_shortcode_test(): string {
+    include_once ABSPATH . '/wp-content/Log.php';
+    include_once ABSPATH . '/../eq.lib.php';
 
-    $user = \core\User::id( 1 )
-                      ->read( [ 'firstname', 'lastname', 'login' ] )
-                      ->adapt( 'json' )
-                      ->first( true );
-
-    $color = 'crimson'; // red
-
-    if ( $user['id'] == 1 ) {
-        $color = 'lightseagreen';
-    }
-
-    $html = '<div style="padding: 50px; background-color:' . $color . '">';
-    $html .= '<h1>User Info</h1>';
-    $html .= '<dl>';
-    $html .= '<dt>User id:</dt>';
-    $html .= '<dd>' . $user['id'] . '</dd>';
-    $html .= '<br>';
-    $html .= '<dt>First Name:</dt>';
-    $html .= '<dd>' . $user['firstname'] . '</dd>';
-    $html .= '<br>';
-    $html .= '<dt>Last Name:</dt>';
-    $html .= '<dd>' . $user['lastname'] . '</dd>';
-    $html .= '<br>';
-    $html .= '<dt>Login:</dt>';
-    $html .= '<dd>' . $user['login'] . '</dd>';
-    $html .= '</dl>';
-    $html .= '</div>';
+    if ( ! is_user_logged_in() && ! is_admin() ) {
+        return '<div style="padding: 50px; background-color: crimson;">You must be logged in and as a non-admin to see this content.</div>';
+    } else {
 
 
-    return $html;
-}
+        $eqUser = \wordpress\User::search( [ 'wordpress_user_id', '=', get_current_user_id() ] )
+                                ->read( [ 'firstname', 'lastname', 'login' ] )
+                                ->first( true );
 
-function eq_menu_add_custom_page() {
-    $post = [
-        'post_title'   => 'eQual test page',
-        'post_content' => '[eq_test]',
-        'post_status'  => 'publish',
-        'post_author'  => 1,
-        'post_type'    => 'page',
-    ];
+        \wpcontent\Log::report( 'eq_menu_shortcode_test => $eqUser', $eqUser );
 
-    // Insert the post if it does not exist
-    if ( get_post( $post ) === null ) {
-        wp_insert_post( $post );
+        $color = empty( $eqUser ) ? 'crimson' : 'lightseagreen';
+
+        $html = '<div style="padding: 50px; background-color:' . $color . '">';
+
+        if ( ! empty( $eqUser ) ) {
+
+            $html .= '<h1>User Info</h1>';
+            $html .= '<dl>';
+            $html .= '<dt>User id:</dt>';
+            $html .= '<dd>' . $eqUser['id'] . '</dd>';
+            $html .= '<br>';
+            $html .= '<dt>First Name:</dt>';
+            $html .= '<dd>' . $eqUser['firstname'] . '</dd>';
+            $html .= '<br>';
+            $html .= '<dt>Last Name:</dt>';
+            $html .= '<dd>' . $eqUser['lastname'] . '</dd>';
+            $html .= '<br>';
+            $html .= '<dt>Login:</dt>';
+            $html .= '<dd>' . $eqUser['login'] . '</dd>';
+            $html .= '</dl>';
+        } else {
+            $html .= '<h1>User not found</h1>';
+        }
+
+        $html .= '</div>';
+
+        return $html;
     }
 }
 
-register_activation_hook( __FILE__, 'eq_menu_add_custom_page' );
+function eq_run_add_custom_page() {
+    $post_title = 'eQual test page';
+
+    // Check if a post with the same title already exists
+    $query = new WP_Query( [
+        'post_type'      => 'page',
+        'post_status'    => 'any',
+        'title'          => $post_title,
+        'posts_per_page' => 1,
+    ] );
+
+    // If no posts found with the same title, insert a new post
+    if ( ! $query->have_posts() ) {
+        wp_insert_post( [
+            'post_title'   => $post_title,
+            'post_content' => '[eq_test]',
+            'post_status'  => 'publish',
+            'post_author'  => 1,
+            'post_type'    => 'page',
+        ] );
+    }
+
+    // Reset post data
+    wp_reset_postdata();
+}
+
+register_activation_hook( __FILE__, 'eq_run_add_custom_page' );
+
 

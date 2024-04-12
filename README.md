@@ -37,7 +37,7 @@ within WordPress by loading the `eq.lib.php` file and initializing the necessary
 
 This section describes how to install the plugin and get it working.
 
-1. Upload `eq-run.zip` to the `/wp-content/plugins/` directory or install it via the WordPress plugin manager.
+1. Upload `eq-run.zip` to the `/public/wp-content/plugins/` directory or install it via the WordPress plugin manager.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 
 ## Frequently Asked Questions

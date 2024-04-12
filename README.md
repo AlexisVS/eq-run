@@ -22,6 +22,15 @@ eQual - Run is a WordPress plugin designed to handle eQual requests efficiently.
 manage various functionalities related to eQual. This plugin facilitates the seamless integration of the eQual framework
 within WordPress by loading the `eq.lib.php` file and initializing the necessary dependencies.
 
+## Features
+
+Load the eQual library and initialize the necessary dependencies.
+
+## Hooks and Filters used
+
+- init
+- admin_menu
+
 ## Installation
 
 This section describes how to install the plugin and get it working.

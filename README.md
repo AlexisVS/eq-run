@@ -8,13 +8,15 @@ Requires at least: 4.5
 
 Tested up to: 6.5
 
-Requires PHP: 5.6
+Requires PHP: 7.4.33
 
 Stable tag: 0.1.0
 
 License: GPLv2 or later
 
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
+
+Load the eQual library and initialize the necessary dependencies.
 
 ## Description
 
@@ -24,7 +26,7 @@ within WordPress by loading the `eq.lib.php` file and initializing the necessary
 
 ## Features
 
-Load the eQual library and initialize the necessary dependencies.
+- Load the eQual library and initialize the necessary dependencies.
 
 ## Hooks and Filters used
 

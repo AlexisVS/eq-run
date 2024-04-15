@@ -72,31 +72,31 @@ function eq_menu_shortcode_test(): string {
     } else {
 
 
-        $eqUser = \wordpress\User::search( [ 'wordpress_user_id', '=', get_current_user_id() ] )
-                                ->read( [ 'firstname', 'lastname', 'login' ] )
-                                ->first( true );
+        $eq_user = \wordpress\User::search( [ 'wordpress_user_id', '=', get_current_user_id() ] )
+                                 ->read( [ 'firstname', 'lastname', 'login' ] )
+                                 ->first( true );
 
-        \wpcontent\Log::report( 'eq_menu_shortcode_test => $eqUser', $eqUser );
+        \wpcontent\Log::report( 'eq_menu_shortcode_test => $eqUser', $eq_user );
 
-        $color = empty( $eqUser ) ? 'crimson' : 'lightseagreen';
+        $color = empty( $eq_user ) ? 'crimson' : 'lightseagreen';
 
         $html = '<div style="padding: 50px; background-color:' . $color . '">';
 
-        if ( ! empty( $eqUser ) ) {
+        if ( ! empty( $eq_user ) ) {
 
             $html .= '<h1>User Info</h1>';
             $html .= '<dl>';
             $html .= '<dt>User id:</dt>';
-            $html .= '<dd>' . $eqUser['id'] . '</dd>';
+            $html .= '<dd>' . $eq_user['id'] . '</dd>';
             $html .= '<br>';
             $html .= '<dt>First Name:</dt>';
-            $html .= '<dd>' . $eqUser['firstname'] . '</dd>';
+            $html .= '<dd>' . $eq_user['firstname'] . '</dd>';
             $html .= '<br>';
             $html .= '<dt>Last Name:</dt>';
-            $html .= '<dd>' . $eqUser['lastname'] . '</dd>';
+            $html .= '<dd>' . $eq_user['lastname'] . '</dd>';
             $html .= '<br>';
             $html .= '<dt>Login:</dt>';
-            $html .= '<dd>' . $eqUser['login'] . '</dd>';
+            $html .= '<dd>' . $eq_user['login'] . '</dd>';
             $html .= '</dl>';
         } else {
             $html .= '<h1>User not found</h1>';

@@ -76,7 +76,7 @@ function eq_menu_shortcode_test(): string {
                                  ->read( [ 'firstname', 'lastname', 'login' ] )
                                  ->first( true );
 
-        \wpcontent\Log::report( 'eq_menu_shortcode_test => $eqUser', $eq_user );
+        \wpcontent\Log::report( 'eq_menu_shortcode_test => $eq_user', $eq_user );
 
         $color = empty( $eq_user ) ? 'crimson' : 'lightseagreen';
 

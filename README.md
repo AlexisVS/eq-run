@@ -10,7 +10,7 @@ Tested up to: 6.5
 
 Requires PHP: 7.4.33
 
-Stable tag: 0.1.0
+Stable tag: 0.1.1
 
 License: GPLv2 or later
 
@@ -55,6 +55,10 @@ This section is currently empty.
 ### 0.1.0
 
 - Initial release of eQual - Run plugin.
+
+### 0.1.1
+
+- Removed the wpcontent\Log lines in the eq-run.php file.
 
 ## Upgrade Notice
 

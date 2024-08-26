@@ -7,7 +7,7 @@
  * Author URI:      https://github.com/AlexisVS
  * Text Domain:     eq-run
  * Domain Path:     /
- * Version:         0.1.0
+ * Version:         0.1.1
  *
  * @package         Eq_Run
  */
@@ -64,7 +64,6 @@ add_action( 'init', function () {
  * @throws Exception
  */
 function eq_menu_shortcode_test(): string {
-    include_once ABSPATH . '/wp-content/Log.php';
     include_once ABSPATH . '/../eq.lib.php';
 
     if ( ! is_user_logged_in() && ! is_admin() ) {
@@ -75,8 +74,6 @@ function eq_menu_shortcode_test(): string {
         $eq_user = \wordpress\User::search( [ 'wordpress_user_id', '=', get_current_user_id() ] )
                                  ->read( [ 'firstname', 'lastname', 'login' ] )
                                  ->first( true );
-
-        \wpcontent\Log::report( 'eq_menu_shortcode_test => $eq_user', $eq_user );
 
         $color = empty( $eq_user ) ? 'crimson' : 'lightseagreen';
 

@@ -60,6 +60,11 @@ This section is currently empty.
 
 - Removed the wpcontent\Log lines in the eq-run.php file.
 
+### 0.1.2
+
+- Changed the loading strategy logic of the eQual library. The loading logic is now placed in the `eq-load.php` file, the ``load_eQual_lib()`` function.
+-
+
 ## Upgrade Notice
 
 No upgrade notices available.
